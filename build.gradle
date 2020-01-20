@@ -1,7 +1,48 @@
 plugins { 
 	id "java"
+	id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+repositories {
+        mavenCentral()
+        mavenLocal()
+        jcenter()
+        flatDir {
+                // The directory lib is available as a source for dependencies - we put any JAR files here
+                // The directory lib will always be one folder "above" a subproject folder - thus the ".."
+                dirs '../lib'
+            }
+	maven { url 'https://jitpack.io' }
+    }
+
+javafx {
+	modules = [ 'javafx.base', 'javafx.controls', 'javafx.media', 'javafx.graphics', 'javafx.fxml' ]
+        version = "11.0.+"
 }
 
 dependencies {
 	implementation(group: "edu.wpi.first.shuffleboard", name: "api", version: "+")
+	implementation name: 'jfxrt'
 }
+
+
+//These tasks must be generated after the project has been 
+//evaluated so that the run task, which is created by the application plugin, 
+//has been fully created so that these tasks can inherit the classpath and modules.
+
+//Don't need this for now, but if we want to run main fx files
+//we have to create the javaFxMains
+// afterEvaluate {project->
+// 	javaFxMains.each{key, value ->
+// 		project.task(["type":JavaExec, "description" : value.description,"group" : "application"], 'run'+key) {
+// 			classpath = sourceSets.main.runtimeClasspath
+// 			main = value.mainClass
+// 			List<String> moduleJvmArgs = new ArrayList<String>(Arrays.asList("--module-path",sourceSets.main.runtimeClasspath.getAsPath()));
+// 			String addModules = String.join(",", project.extensions.javafx.modules);
+// 			List<String> jvmArgs = new ArrayList<String>();
+// 			jvmArgs.add("--add-modules");
+// 			jvmArgs.add(addModules);
+// 			jvmArgs.addAll(moduleJvmArgs);
+// 			setJvmArgs(jvmArgs);
+// 		}
+// 	}
+// }
