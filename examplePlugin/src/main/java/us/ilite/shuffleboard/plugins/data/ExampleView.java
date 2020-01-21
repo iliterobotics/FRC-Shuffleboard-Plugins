@@ -2,6 +2,8 @@ package us.ilite.shuffleboard.plugins.data;
 
 import edu.wpi.first.shuffleboard.api.widget.Description;
 import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.Pane;
@@ -14,8 +16,25 @@ import javafx.scene.text.Text;
 @Description(name = "Example View", dataTypes = ExampleDataPoint.class, summary = "Just a test")
 public class ExampleView extends SimpleAnnotatedWidget<ExampleDataPoint> {
 
+
+    ExampleView() {
+
+    }
+
+
     @Override
     public Pane getView() {
+        ChangeListener<ExampleDataPoint>alistener = new ChangeListener<ExampleDataPoint>() {
+            @Override
+            public void changed(ObservableValue<? extends ExampleDataPoint> observable, ExampleDataPoint oldValue, ExampleDataPoint newValue) {
+                //perform the updates to the UI when the data changes. Need to make sure the GUI component exists
+            }
+        };
+
+        dataOrDefault.addListener((obs, old, newVal)->{
+                //update the GUI when the value changes
+        });
+
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(8);
