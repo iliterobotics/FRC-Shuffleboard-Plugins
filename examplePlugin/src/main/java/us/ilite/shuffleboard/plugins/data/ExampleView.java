@@ -1,7 +1,9 @@
 package us.ilite.shuffleboard.plugins.data;
 
+import edu.wpi.first.shuffleboard.api.data.IncompatibleSourceException;
+import edu.wpi.first.shuffleboard.api.sources.DataSource;
+import edu.wpi.first.shuffleboard.api.widget.AbstractWidget;
 import edu.wpi.first.shuffleboard.api.widget.Description;
-import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -12,34 +14,39 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 //THIS IS REQUIRED OR IT WILL NOT WORK!!
 @Description(name = "Example View", dataTypes = ExampleDataPoint.class, summary = "Just a test")
-public class ExampleView extends SimpleAnnotatedWidget<ExampleDataPoint> {
+public class ExampleView extends AbstractWidget {
 
 
-    ExampleView() {
+    private Text title;
+    private final Logger myLog;
 
+    public ExampleView() {
+        myLog =
+                LogManager.getLogManager().getLogger("");
+        myLog.config("I'm just a singer in a rock and roll band!");
     }
 
+    @Override
+    public void addSource(DataSource source) throws IncompatibleSourceException {
+        super.addSource(source);
+
+        if(title != null) {
+            title.setText(source.getName() +": " + source.getClass());
+        }
+    }
 
     @Override
     public Pane getView() {
-        ChangeListener<ExampleDataPoint>alistener = new ChangeListener<ExampleDataPoint>() {
-            @Override
-            public void changed(ObservableValue<? extends ExampleDataPoint> observable, ExampleDataPoint oldValue, ExampleDataPoint newValue) {
-                //perform the updates to the UI when the data changes. Need to make sure the GUI component exists
-            }
-        };
-
-        dataOrDefault.addListener((obs, old, newVal)->{
-                //update the GUI when the value changes
-        });
-
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(8);
 
-        Text title = new Text("Data");
+        title = new Text("Data for me");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         vbox.getChildren().add(title);
 
@@ -55,6 +62,11 @@ public class ExampleView extends SimpleAnnotatedWidget<ExampleDataPoint> {
         }
 
         return vbox;
+    }
+
+    @Override
+    public String getName() {
+        return "Example View";
     }
 
 }

@@ -1,6 +1,7 @@
 package us.ilite.shuffleboard.plugins;
 
 import edu.wpi.first.shuffleboard.api.data.DataType;
+import edu.wpi.first.shuffleboard.api.data.DataTypes;
 import edu.wpi.first.shuffleboard.api.plugin.Description;
 import edu.wpi.first.shuffleboard.api.plugin.Plugin;
 import edu.wpi.first.shuffleboard.api.widget.ComponentType;
@@ -15,10 +16,11 @@ import java.util.Map;
 @Description(group = "us.ilite", name="Example Plugin", version ="1.0.0", summary="Just an example")
 public class ExampleShuffleboardPlugin extends Plugin {
 
+
     @Override
     public List<DataType> getDataTypes() {
         return List.of(
-                ExampleDataType.INSTANCE
+                DataTypes.All
         );
     }
 
@@ -32,7 +34,7 @@ public class ExampleShuffleboardPlugin extends Plugin {
     @Override
     public Map<DataType, ComponentType> getDefaultComponents() {
         return Map.of(
-                ExampleDataType.INSTANCE, WidgetType.forAnnotatedWidget(ExampleView.class)
+                DataTypes.All, WidgetType.forAnnotatedWidget(ExampleView.class)
         );
     }
 }
