@@ -83,7 +83,7 @@ public class ExampleView extends ChrisWidget<Object> {
 
     @Override
     public void addSource(DataSource source) throws IncompatibleSourceException {
-
+        super.addSource(source);
         colorState current = nextColor;
 
         if(current == null) {
