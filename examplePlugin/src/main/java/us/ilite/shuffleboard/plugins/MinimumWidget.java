@@ -5,7 +5,7 @@ import edu.wpi.first.shuffleboard.api.sources.DataSource;
 import edu.wpi.first.shuffleboard.api.widget.AbstractWidget;
 import edu.wpi.first.shuffleboard.api.widget.AnnotatedWidget;
 
-public abstract class ChrisWidget<T> extends AbstractWidget implements AnnotatedWidget {
+public abstract class MinimumWidget<T> extends AbstractWidget implements AnnotatedWidget {
 
     @Override
     public void addSource(DataSource source) throws IncompatibleSourceException {

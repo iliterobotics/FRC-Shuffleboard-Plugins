@@ -1,4 +1,4 @@
-package us.ilite.shuffleboard.plugins.data;
+package us.ilite.shuffleboard.plugins.rgbcolor;
 
 import edu.wpi.first.shuffleboard.api.data.IncompatibleSourceException;
 import edu.wpi.first.shuffleboard.api.sources.DataSource;
@@ -10,12 +10,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import org.fxmisc.easybind.EasyBind;
 import org.fxmisc.easybind.monadic.PropertyBinding;
-import us.ilite.shuffleboard.plugins.ChrisWidget;
+import us.ilite.shuffleboard.plugins.MinimumWidget;
 
 //THIS IS REQUIRED OR IT WILL NOT WORK!!
-@Description(name = "Example View", dataTypes = {String.class, Number.class, Boolean.class}, summary = "Just a test")
+@Description(name = "RGB Color Widget", dataTypes = {Number.class}, summary = "A panel that's background will match the value of the three channels (RGB)")
 
-public class ExampleView extends ChrisWidget<Object> {
+public class RGBColorWIdget extends MinimumWidget<Object> {
     private Pane root;
     enum colorState {
         RED,
@@ -40,7 +40,7 @@ public class ExampleView extends ChrisWidget<Object> {
     private TextField blueField;
 
 
-    public ExampleView() {
+    public RGBColorWIdget() {
         BorderPane borderPane = new BorderPane();
         borderPane.setMinWidth(64);
         borderPane.setMinHeight(32);
@@ -75,8 +75,6 @@ public class ExampleView extends ChrisWidget<Object> {
         if(cur != null) {
             if(cur instanceof Number) {
                 field.setText(cur.toString());
-            } else {
-                field.setText(cur.getClass().toString());
             }
         }
     }
